@@ -15,7 +15,9 @@ export const TableHeaders = () => {
     <TableHeader>
       <TableRow>
         {tableHeads.map((head) => (
-          <TableHead key={head.id}>{head.header}</TableHead>
+          <div key={head.id}>
+            <TableHead>{head.header}</TableHead>
+          </div>
         ))}
       </TableRow>
     </TableHeader>

@@ -10,9 +10,9 @@ import { adminMiddleware } from "../controller/middleware/adminMiddleware";
 const router = express.Router();
 
 router.get("/", getCategories);
-router.get("/:id", authMiddleware, adminMiddleware, getCategoryById);
-router.post("/", authMiddleware, adminMiddleware, addCategory);
-router.put("/:id", authMiddleware, adminMiddleware, updatedCategory);
-router.delete("/:id", authMiddleware, adminMiddleware, deletedCategory);
+router.get("/:id", getCategoryById);
+router.post("/", addCategory);
+router.put("/:id", updatedCategory);
+router.delete("/:id", deletedCategory);
 
 export default router;

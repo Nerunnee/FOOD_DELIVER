@@ -3,11 +3,13 @@ import usersRouter from "./router/users.router";
 import categoriesRouter from "./router/categories.router";
 import foodsRouter from "./router/foods.router";
 import orderRouter from "./router/orders.router";
+import cors from "cors";
 
 const app: Application = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/users", usersRouter);
 app.use("/categories", categoriesRouter);
