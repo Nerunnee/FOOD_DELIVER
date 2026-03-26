@@ -29,7 +29,7 @@ export const FoodCard = (props: FoodCardProps) => {
           <p className="text-xs">{price}₮</p>
         </div>
 
-        <p className="text-xs">{desc}</p>
+        <p className="w-59.75 text-xs truncate">{desc}</p>
       </div>
     </div>
   );

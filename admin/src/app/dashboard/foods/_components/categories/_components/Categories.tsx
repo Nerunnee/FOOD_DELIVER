@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { getCategories } from "@/lib/services/get-categories";
+import { Category } from "@/lib/types/categories-types";
 
-export const Categories = async () => {
-  const categories = await getCategories();
+type CategoriesProps = {
+  categories: Category[];
+};
+
+export const Categories = async (props: CategoriesProps) => {
+  const { categories } = props;
 
   return (
-    <div className="flex gap-5">
+    <div className="flex flex-wrap gap-5">
       {categories.map((category) => {
         return (
           <div key={category.id}>

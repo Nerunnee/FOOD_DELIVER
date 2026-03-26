@@ -1,9 +1,13 @@
 import { FoodCard } from "@/components/shared-components/foodCard";
-import { getCategories } from "@/lib/services/get-categories";
 import { AddFood } from "./AddFood";
+import { Category } from "@/lib/types/categories-types";
 
-export const FoodsHero = async () => {
-  const categories = await getCategories();
+type FoodsHeroProps = {
+  categories: Category[];
+};
+
+export const FoodsHero = async (props: FoodsHeroProps) => {
+  const { categories } = props;
 
   const filteredCategories = categories.filter(
     (category) => category.foods.length !== 0,
@@ -16,7 +20,7 @@ export const FoodsHero = async () => {
           <div key={category.id}>
             <h1>{category.name}</h1>
             <div className="flex gap-4">
-              <AddFood />
+              <AddFood categories={categories} />
               {category.foods.map((food) => (
                 <div key={food.id}>
                   <FoodCard

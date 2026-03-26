@@ -14,41 +14,49 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Category } from "@/lib/types/categories-types";
+import { CategorySelector } from "./CategorySelector";
 
-export function AddFood() {
+type AddFoodProps = {
+  categories: Category[];
+};
+
+export function AddFood(props: AddFoodProps) {
+  const { categories } = props;
+
   const [open, setOpen] = useState(false);
-  const [foodName, setFoodName] = useState("");
-  const [foodPrice, setFoodPrice] = useState("");
-  const [foodImage, setFoodImage] = useState("");
-  const [foodIngredients, setFoodIngredients] = useState("");
-  const [category, setCategory] = useState("");
+  const [food, setFood] = useState<{
+    foodName: string;
+    price: number;
+    categoryId: null | number;
+    ingredients: string;
+  }>({
+    foodName: "",
+    price: 0,
+    categoryId: null,
+    ingredients: "",
+  });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const onChangeName: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (
+  const handleChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (
     event,
   ) => {
-    setFoodName(event.target.value);
-    // setFoodPrice(event.target.value);
-    // setFoodImage(event.target.value);
-    // setFoodIngredients(event.target.value);
-    // setCategory(event.target.value);
+    setFood({ ...food, [event.target.name]: event.target.value });
   };
-  const onChangePrice: ChangeEventHandler<
-    HTMLInputElement,
-    HTMLInputElement
-  > = (event) => {
-    setFoodPrice(event.target.value);
+
+  const onSelectCategory = (categoryId: number) => {
+    setFood({ ...food, categoryId: categoryId });
   };
 
   const onAddFood = async () => {
     setLoading(true);
     const postBody = {
-      foodName: foodName,
-      price: foodPrice,
-      image: foodImage,
-      ingredients: foodIngredients,
-      foodCategoryId: category,
+      foodName: food.foodName,
+      price: food.price,
+      ingredients: food.ingredients,
+      foodCategoryId: food.categoryId,
+      image: "",
     };
 
     try {
@@ -57,7 +65,6 @@ export function AddFood() {
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${process.env.ADMINJWT}`,
-          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6MiwiZW1haWwiOiJ6dWxhYUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4ifSwiaWF0IjoxNzc0NDA4NDQ3LCJleHAiOjE3NzQ0MTIwNDd9.bIxOgxHZG8mWa8Kx9SdsUsGrg8f8NjtAI-JgD1Vp3wU`,
         },
         body: JSON.stringify(postBody),
       });
@@ -85,36 +92,51 @@ export function AddFood() {
           <DialogHeader>
             <DialogTitle>Add new Dish to Appetizers</DialogTitle>
           </DialogHeader>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-col gap-6">
             <div className="grid flex-1 gap-2">
               <Label>Food name</Label>
               <Input
                 type="text"
                 placeholder="Type food name..."
-                onChange={onChangeName}
+                name="foodName"
+                onChange={handleChange}
               />
             </div>
+
+            <div className="grid flex-1 gap-2">
+              <Label>Category</Label>
+              <CategorySelector
+                categories={categories}
+                onSelect={onSelectCategory}
+              />
+            </div>
+
+            <div className="grid flex-1 gap-2">
+              <Label>Ingredients</Label>
+              <Input
+                type="text"
+                placeholder="List ingredients..."
+                name="ingredients"
+                onChange={handleChange}
+              />
+            </div>
+
             <div className="grid flex-1 gap-2">
               <Label>Food Price</Label>
               <Input
                 type="text"
                 placeholder="Enter price..."
-                onChange={onChangePrice}
+                name="price"
+                onChange={handleChange}
               />
             </div>
+
+            {/* <div className="grid flex-1 gap-2">
+              <Label>Food image</Label>
+              <Input type="file" onChange={handleChange} name="image" />
+            </div> */}
           </div>
-          {/* <div className="grid flex-1 gap-2">
-            <Label>Ingredients</Label>
-            <Input
-              type="text"
-              placeholder="List ingredients..."
-              onChange={onChange}
-            />
-          </div>
-          <div className="grid flex-1 gap-2">
-            <Label>Food image</Label>
-            <Input type="file" onChange={onChange} />
-          </div> */}
+
           <DialogFooter className="sm:justify-end">
             <Button type="button" onClick={onAddFood} disabled={loading}>
               {loading ? <LoaderCircle className="animate-spin" /> : "Add food"}
