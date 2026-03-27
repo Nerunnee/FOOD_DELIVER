@@ -1,9 +1,6 @@
-"use client";
-
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { getUsers } from "@/lib/services/get-users";
 import { TableHeaders } from "./components/order-headers";
-import { useState } from "react";
 
 const GetOrders = async () => {
   const users = await getUsers();
@@ -53,9 +50,7 @@ const GetOrders = async () => {
                   );
                 })}
               </TableCell>
-              <TableCell>
-                <Status />
-              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           );
         })}
@@ -65,10 +60,3 @@ const GetOrders = async () => {
 };
 
 export default GetOrders;
-
-export const Status = async () => {
-  const [position, setPosition] = useState("top");
-
-  const users = await getUsers();
-  return <div></div>;
-};

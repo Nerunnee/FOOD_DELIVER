@@ -19,10 +19,11 @@ import { CategorySelector } from "./CategorySelector";
 
 type AddFoodProps = {
   categories: Category[];
+  currentCategory: number;
 };
 
 export function AddFood(props: AddFoodProps) {
-  const { categories } = props;
+  const { categories, currentCategory } = props;
 
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState<{
@@ -34,7 +35,7 @@ export function AddFood(props: AddFoodProps) {
   }>({
     foodName: "",
     price: 0,
-    categoryId: null,
+    categoryId: currentCategory ?? null,
     ingredients: "",
     image: "",
   });
@@ -80,7 +81,7 @@ export function AddFood(props: AddFoodProps) {
   };
 
   return (
-    <div className="w-68 border border-dashed border-red-500 rounded-xl flex items-center justify-center">
+    <div className="w-68 h-60.25 border border-dashed border-red-500 rounded-xl flex items-center justify-center">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild className="flex flex-col items-center gap-6">
           <div>
@@ -93,7 +94,7 @@ export function AddFood(props: AddFoodProps) {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>
-              {`Add new Dish to ${categories.find((category) => category.name)}`}
+              {`Add new Dish to ${categories.find((category) => category.id === currentCategory)?.name}`}
             </DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-6">

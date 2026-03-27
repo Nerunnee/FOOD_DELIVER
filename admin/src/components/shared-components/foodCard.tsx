@@ -1,4 +1,4 @@
-import { EditFood } from "@/app/dashboard/foods/_components/foods/EditFood";
+import { EditFood } from "@/app/dashboard/foods/_components/foods/_components/EditFood";
 import { Category, Food } from "@/lib/types/categories-types";
 
 type FoodCardProps = {

@@ -16,7 +16,6 @@ export const FoodsCategories = async (props: CategoriesProps) => {
           <div key={category.id}>
             <Button variant="outline" className="text-sm font-medium py-5">
               {category.name}
-
               <p className="w-7 h-7  bg-black text-white rounded-full flex items-center justify-center">
                 {category.foods.length}
               </p>

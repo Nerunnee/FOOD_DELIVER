@@ -1,6 +1,6 @@
 import { FoodCard } from "@/components/shared-components/foodCard";
-import { AddFood } from "./AddFood";
 import { Category } from "@/lib/types/categories-types";
+import { AddFood } from "./_components/AddFood";
 
 type FoodsHeroProps = {
   categories: Category[];
@@ -23,7 +23,7 @@ export const FoodsHero = async (props: FoodsHeroProps) => {
               <p>({category.foods.length})</p>
             </h1>
             <div className="flex flex-wrap gap-4">
-              <AddFood categories={categories} />
+              <AddFood categories={categories} currentCategory={category.id} />
               {category.foods.map((food) => (
                 <div key={food.id}>
                   <FoodCard food={food} categories={categories} />

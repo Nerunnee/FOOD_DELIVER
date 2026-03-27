@@ -45,21 +45,21 @@ export function EditFood(props: EditFoodProps) {
   const handleChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (
     event,
   ) => {
-    setEditFood({ ...food, [event.target.name]: event.target.value });
+    setEditFood({ ...editFood, [event.target.name]: event.target.value });
   };
 
   const onSelectCategory = (foodCategoryId: number) => {
-    setEditFood({ ...food, foodCategoryId: foodCategoryId });
+    setEditFood({ ...editFood, foodCategoryId: foodCategoryId });
   };
 
   const onAddFood = async () => {
     setLoading(true);
     const postBody = {
-      foodName: food.foodName,
-      price: food.price,
-      ingredients: food.ingredients,
-      foodCategoryId: food.foodCategoryId,
-      image: food.image,
+      foodName: editFood.foodName,
+      price: editFood.price,
+      ingredients: editFood.ingredients,
+      foodCategoryId: editFood.foodCategoryId,
+      image: editFood.image,
     };
 
     try {
@@ -82,22 +82,14 @@ export function EditFood(props: EditFoodProps) {
 
   const deleteFood = async () => {
     setLoading(true);
-    const postBody = {
-      foodName: food.foodName,
-      price: food.price,
-      ingredients: food.ingredients,
-      foodCategoryId: food.foodCategoryId,
-      image: food.image,
-    };
 
     try {
-      await fetch(`http://localhost:3000/foods/${food.id}`, {
+      const response = await fetch(`http://localhost:3000/foods/${food.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${process.env.ADMINJWT}`,
         },
-        body: JSON.stringify(postBody),
       });
       router.refresh();
       setOpen(false);
@@ -180,8 +172,13 @@ export function EditFood(props: EditFoodProps) {
               onClick={deleteFood}
               disabled={loading}
             >
-              <Trash size={16} className="text-red-500" />
+              {loading ? (
+                <LoaderCircle className="animate-spin" />
+              ) : (
+                <Trash size={16} className="text-red-500" />
+              )}
             </Button>
+
             <Button type="button" onClick={onAddFood} disabled={loading}>
               {loading ? (
                 <LoaderCircle className="animate-spin" />
