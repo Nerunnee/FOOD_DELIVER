@@ -1,6 +1,6 @@
 "use client";
 
-import { LoaderCircle, Plus } from "lucide-react";
+import { LoaderCircle, Pencil, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,29 +14,30 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Category } from "@/lib/types/categories-types";
+import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
 
-type AddFoodProps = {
+type DeleteFoodProps = {
+  food: Food;
   categories: Category[];
 };
 
-export function AddFood(props: AddFoodProps) {
-  const { categories } = props;
+export function DeleteFood(props: DeleteFoodProps) {
+  const { categories, food } = props;
 
   const [open, setOpen] = useState(false);
-  const [food, setFood] = useState<{
+  const [deleteFood, setDeleteFood] = useState<{
     foodName: string;
-    price: number;
-    categoryId: null | number;
+    price: string;
+    foodCategoryId: number;
     ingredients: string;
     image: string;
   }>({
-    foodName: "",
-    price: 0,
-    categoryId: null,
-    ingredients: "",
-    image: "",
+    foodName: food.foodName,
+    price: food.price,
+    foodCategoryId: food.foodCategoryId,
+    ingredients: food.ingredients,
+    image: food.image,
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -44,11 +45,11 @@ export function AddFood(props: AddFoodProps) {
   const handleChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (
     event,
   ) => {
-    setFood({ ...food, [event.target.name]: event.target.value });
+    setDeleteFood({ ...food, [event.target.name]: event.target.value });
   };
 
-  const onSelectCategory = (categoryId: number) => {
-    setFood({ ...food, categoryId: categoryId });
+  const onSelectCategory = (foodCategoryId: number) => {
+    setDeleteFood({ ...food, foodCategoryId: foodCategoryId });
   };
 
   const onAddFood = async () => {
@@ -57,13 +58,13 @@ export function AddFood(props: AddFoodProps) {
       foodName: food.foodName,
       price: food.price,
       ingredients: food.ingredients,
-      foodCategoryId: food.categoryId,
+      foodCategoryId: food.foodCategoryId,
       image: food.image,
     };
 
     try {
-      await fetch("http://localhost:3000/foods", {
-        method: "POST",
+      await fetch(`http://localhost:3000/foods/${food.id}`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${process.env.ADMINJWT}`,
@@ -80,42 +81,27 @@ export function AddFood(props: AddFoodProps) {
   };
 
   return (
-    <div className="w-68 border border-dashed border-red-500 rounded-xl flex items-center justify-center">
+    <div className="w-68 rounded-xl flex items-center justify-center">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild className="flex flex-col items-center gap-6">
           <div>
-            <div className="h-9 w-9 bg-red-500 rounded-full flex items-center justify-center text-white">
-              <Plus size={16} />
-            </div>
-            <p className="text-sm font-medium">Add new Dish to</p>
+            <Pencil size={16} className="text-red-500" />
           </div>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>
-              {`Add new Dish to ${categories.find((category) => category.name)}`}
-            </DialogTitle>
+            <DialogTitle>Dishes infos</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-6">
-            <div className="flex gap-6">
-              <div className="grid flex-1 gap-2">
-                <Label>Food name</Label>
-                <Input
-                  type="text"
-                  placeholder="Type food name..."
-                  name="foodName"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="grid flex-1 gap-2">
-                <Label>Food Price</Label>
-                <Input
-                  type="number"
-                  placeholder="Enter price..."
-                  name="price"
-                  onChange={handleChange}
-                />
-              </div>
+            <div className="grid flex-1 gap-2">
+              <Label>Food name</Label>
+              <Input
+                type="text"
+                placeholder="Type food name..."
+                name="foodName"
+                onChange={handleChange}
+                value={deleteFood.foodName}
+              />
             </div>
 
             <div className="grid flex-1 gap-2">
@@ -133,6 +119,18 @@ export function AddFood(props: AddFoodProps) {
                 placeholder="List ingredients..."
                 name="ingredients"
                 onChange={handleChange}
+                value={deleteFood.ingredients}
+              />
+            </div>
+
+            <div className="grid flex-1 gap-2">
+              <Label>Food Price</Label>
+              <Input
+                type="text"
+                placeholder="Enter price..."
+                name="price"
+                onChange={handleChange}
+                value={deleteFood.price}
               />
             </div>
 
@@ -140,16 +138,16 @@ export function AddFood(props: AddFoodProps) {
               <Label>Food image</Label>
               <Input
                 type="text"
-                placeholder="Add food image..."
                 name="image"
                 onChange={handleChange}
+                value={deleteFood.image}
               />
             </div>
           </div>
 
           <DialogFooter className="sm:justify-end">
             <Button type="button" onClick={onAddFood} disabled={loading}>
-              {loading ? <LoaderCircle className="animate-spin" /> : "Add dish"}
+              {loading ? <LoaderCircle className="animate-spin" /> : "Add food"}
             </Button>
           </DialogFooter>
         </DialogContent>

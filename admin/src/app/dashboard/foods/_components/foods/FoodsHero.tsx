@@ -14,20 +14,19 @@ export const FoodsHero = async (props: FoodsHeroProps) => {
   );
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 p-5">
       {filteredCategories.map((category) => {
         return (
-          <div key={category.id}>
-            <h1>{category.name}</h1>
-            <div className="flex gap-4">
+          <div key={category.id} className="flex flex-col gap-4">
+            <h1 className="flex gap-2 text-xl font-semibold">
+              {category.name}
+              <p>({category.foods.length})</p>
+            </h1>
+            <div className="flex flex-wrap gap-4">
               <AddFood categories={categories} />
               {category.foods.map((food) => (
                 <div key={food.id}>
-                  <FoodCard
-                    name={food.foodName}
-                    price={food.price}
-                    desc={food.ingredients}
-                  />
+                  <FoodCard food={food} categories={categories} />
                 </div>
               ))}
             </div>
