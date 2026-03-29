@@ -15,14 +15,14 @@ import { Label } from "@/components/ui/label";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Category } from "@/lib/types/categories-types";
-import { CategorySelector } from "./CategorySelector";
+import { CategorySelector } from "../../foods/_components/CategorySelector";
 
 type AddFoodProps = {
   categories: Category[];
   currentCategory: number;
 };
 
-export function AddFood(props: AddFoodProps) {
+export function AddFoodCategory(props: AddFoodProps) {
   const { categories, currentCategory } = props;
 
   const [open, setOpen] = useState(false);
@@ -81,14 +81,11 @@ export function AddFood(props: AddFoodProps) {
   };
 
   return (
-    <div className="w-68 h-58 border border-dashed border-red-500 rounded-xl flex items-center justify-center">
+    <div className="rounded-xl flex items-center justify-center">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild className="flex flex-col items-center gap-6">
           <div>
-            <div className="h-9 w-9 bg-red-500 rounded-full flex items-center justify-center text-white">
-              <Plus size={16} />
-            </div>
-            <p className="text-sm font-medium">Add new Dish to</p>
+            <Plus />
           </div>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">

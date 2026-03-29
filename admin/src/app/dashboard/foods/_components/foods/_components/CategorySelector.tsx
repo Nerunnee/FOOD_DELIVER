@@ -12,13 +12,17 @@ import {
 type CategorySelectorProps = {
   categories: Category[];
   onSelect: (categoryId: number) => void;
+  defaultValue?: number;
 };
 
 export function CategorySelector(props: CategorySelectorProps) {
-  const { categories, onSelect } = props;
+  const { categories, onSelect, defaultValue } = props;
 
   return (
-    <Select onValueChange={(value) => onSelect(Number(value))}>
+    <Select
+      defaultValue={defaultValue ? String(defaultValue) : undefined}
+      onValueChange={(value) => onSelect(Number(value))}
+    >
       <SelectTrigger className="w-full max-w-48">
         <SelectValue placeholder="Select a category" />
       </SelectTrigger>
@@ -26,7 +30,11 @@ export function CategorySelector(props: CategorySelectorProps) {
         <SelectGroup>
           <SelectLabel>Categories</SelectLabel>
           {categories.map((category) => (
-            <SelectItem key={category.id} value={String(category.id)}>
+            <SelectItem
+              key={category.id}
+              value={String(category.id)}
+              defaultValue={category.id}
+            >
               {category.name}
             </SelectItem>
           ))}
