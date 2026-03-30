@@ -4,10 +4,11 @@ import { Category, Food } from "@/lib/types/categories-types";
 type FoodCardProps = {
   food: Food;
   categories: Category[];
+  currentCategory: number;
 };
 
 export const FoodCard = (props: FoodCardProps) => {
-  const { food, categories } = props;
+  const { food, categories, currentCategory } = props;
   const { foodName, price, ingredients, image } = food;
 
   return (
@@ -19,7 +20,11 @@ export const FoodCard = (props: FoodCardProps) => {
           className="w-59.75 h-32.25 rounded-xl object-cover"
         />
         <div className="absolute bottom-1 right-1 h-11 w-11 bg-white rounded-full flex items-center justify-center">
-          <EditFood categories={categories} food={food} />
+          <EditFood
+            categories={categories}
+            food={food}
+            currentCategory={currentCategory}
+          />
         </div>
       </div>
 

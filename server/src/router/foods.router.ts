@@ -4,6 +4,7 @@ import { getFoodById } from "../controller/foods/get-food-by-id";
 import { addFood } from "../controller/foods/add-food";
 import { updatedFood } from "../controller/foods/update-food";
 import { deletedFood } from "../controller/foods/delete-food";
+import { authMiddleware } from "../controller/middleware/authMiddleware";
 
 const router = express.Router();
 

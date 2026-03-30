@@ -20,10 +20,11 @@ import { CategorySelector } from "./CategorySelector";
 type EditFoodProps = {
   food: Food;
   categories: Category[];
+  currentCategory: number;
 };
 
 export function EditFood(props: EditFoodProps) {
-  const { categories, food } = props;
+  const { categories, food, currentCategory } = props;
 
   const [open, setOpen] = useState(false);
   const [editFood, setEditFood] = useState<{
@@ -35,7 +36,7 @@ export function EditFood(props: EditFoodProps) {
   }>({
     foodName: food.foodName,
     price: food.price,
-    foodCategoryId: food.foodCategoryId,
+    foodCategoryId: food.foodCategoryId && currentCategory,
     ingredients: food.ingredients,
     image: food.image,
   });
@@ -84,7 +85,7 @@ export function EditFood(props: EditFoodProps) {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:3000/foods/${food.id}`, {
+      await fetch(`http://localhost:3000/foods/${food.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -129,6 +130,7 @@ export function EditFood(props: EditFoodProps) {
               <CategorySelector
                 categories={categories}
                 onSelect={onSelectCategory}
+                defaultValue={currentCategory}
               />
             </div>
 

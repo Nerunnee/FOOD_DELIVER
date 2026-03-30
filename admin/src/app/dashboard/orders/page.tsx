@@ -1,56 +1,36 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { getUsers } from "@/lib/services/get-users";
-import { TableHeaders } from "./components/order-headers";
+import { TableHeads } from "./components/TableHeads";
+import { getOrders } from "@/lib/services/get-orders";
+import { SelectStatus } from "./components/selectStatus";
+import { FoodDetails } from "./components/FoodDetails";
+import { Input } from "@/components/ui/input";
 
 const GetOrders = async () => {
-  const users = await getUsers();
+  const orders = await getOrders();
 
   return (
-    <Table className="ml-6 mt-6 mr-10 mb-13">
-      <TableHeaders />
+    <Table className="ml-6 mt-6 mr-10 mb-13 flex flex-col w-292">
+      <TableHeads />
       <TableBody>
-        {users.map((user, index) => {
+        {orders.map((order, index) => {
           return (
-            <TableRow key={index}>
+            <TableRow key={index} className="flex justify-between items-center">
+              <TableCell>
+                <Input type="checkbox" />
+              </TableCell>
               <TableCell>{index + 1}</TableCell>
-              <TableCell key={user.id}>{user.email}</TableCell>
+              <TableCell>{order.user.email}</TableCell>
               <TableCell>
-                {user.orders.map((order) => {
-                  return (
-                    <div key={order.id}>
-                      {order.foodOrderItems.map((item) => {
-                        return <div>{item.quantity}</div>;
-                      })}
-                    </div>
-                  );
-                })}
+                <FoodDetails order={order} />
               </TableCell>
+              <TableCell>{order.totalPrice}₮</TableCell>
               <TableCell>
-                {user.orders.map((order) => {
-                  return <div key={order.id}>$ {order.totalPrice}</div>;
-                })}
+                {new Date(order.createdAt).toLocaleString()}
               </TableCell>
+              <TableCell>{order.user.address}</TableCell>
               <TableCell>
-                {user.orders.map((order) => {
-                  return (
-                    <div key={order.id}>
-                      {new Date(order.createdAt).toLocaleString()}
-                    </div>
-                  );
-                })}
+                <SelectStatus orderId={order.id} orderStatus={order.status} />
               </TableCell>
-              <TableCell>
-                {user.orders.map((order) => {
-                  return (
-                    <div key={order.id}>
-                      {order.foodOrderItems.map((item) => {
-                        return <div> delivery address {item.foodId}</div>;
-                      })}
-                    </div>
-                  );
-                })}
-              </TableCell>
-              <TableCell></TableCell>
             </TableRow>
           );
         })}

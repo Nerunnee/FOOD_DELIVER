@@ -14,7 +14,7 @@ export const FoodsCategories = async (props: CategoriesProps) => {
     <div className="flex flex-wrap gap-3 p-5">
       {categories.map((category) => {
         return (
-          <div key={category.id}>
+          <div key={category.id} className="">
             <Button variant="outline" className="text-sm font-medium py-5">
               {category.name}
               <p className="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center">

@@ -27,6 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       className={cn(
         "h-full",
@@ -38,7 +39,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <main>{children}</main>
+        <main className="bg-slate-100">{children}</main>
       </body>
     </html>
   );

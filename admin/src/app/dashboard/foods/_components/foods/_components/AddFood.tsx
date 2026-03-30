@@ -48,7 +48,7 @@ export function AddFood(props: AddFoodProps) {
     setFood({ ...food, [event.target.name]: event.target.value });
   };
 
-  const onSelectCategory = (categoryId: number) => {
+  const onSelectCategory = (categoryId: number) => { 
     setFood({ ...food, categoryId: categoryId });
   };
 
