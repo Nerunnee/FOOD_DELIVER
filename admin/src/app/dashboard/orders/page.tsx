@@ -9,12 +9,15 @@ const GetOrders = async () => {
   const orders = await getOrders();
 
   return (
-    <Table className="ml-6 mt-6 mr-10 mb-13 flex flex-col w-292">
+    <Table className="ml-6 mt-6 mr-10 mb-13 flex flex-col w-300 bg-white rounded-xl">
       <TableHeads />
       <TableBody>
         {orders.map((order, index) => {
           return (
-            <TableRow key={index} className="flex justify-between items-center">
+            <TableRow
+              key={index}
+              className="flex justify-between items-center p-5"
+            >
               <TableCell>
                 <Input type="checkbox" />
               </TableCell>

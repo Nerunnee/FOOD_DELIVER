@@ -1,10 +1,4 @@
-import {
-  Table,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const tableHeads = [
   { id: 1, header: "" },
@@ -19,16 +13,12 @@ const tableHeads = [
 
 export const TableHeads = () => {
   return (
-    <Table>
-      <TableHeader>
-        <TableRow className="flex justify-between items-center">
-          {tableHeads.map((head) => (
-            <TableHead key={head.id}>
-              <TableCell>{head.header}</TableCell>
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-    </Table>
+    <TableHeader>
+      <TableRow className="flex justify-between p-5">
+        {tableHeads.map((head) => (
+          <TableHead key={head.id}>{head.header}</TableHead>
+        ))}
+      </TableRow>
+    </TableHeader>
   );
 };
