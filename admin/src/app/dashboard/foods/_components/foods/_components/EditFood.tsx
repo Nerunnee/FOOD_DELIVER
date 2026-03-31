@@ -41,6 +41,7 @@ export function EditFood(props: EditFoodProps) {
     image: food.image,
   });
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const router = useRouter();
 
   const handleChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement> = (
@@ -82,7 +83,7 @@ export function EditFood(props: EditFoodProps) {
   };
 
   const deleteFood = async () => {
-    setLoading(true);
+    setDeleteLoading(true);
 
     try {
       await fetch(`http://localhost:3000/foods/${food.id}`, {
@@ -98,7 +99,7 @@ export function EditFood(props: EditFoodProps) {
       console.log(error);
     }
 
-    setLoading(false);
+    setDeleteLoading(false);
   };
 
   return (
@@ -174,7 +175,7 @@ export function EditFood(props: EditFoodProps) {
               onClick={deleteFood}
               disabled={loading}
             >
-              {loading ? (
+              {deleteLoading ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
                 <Trash size={16} className="text-red-500" />

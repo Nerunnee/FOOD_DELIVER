@@ -22,7 +22,7 @@ model User {
   age      Int?
   orders   FoodOrder[]
   address  String?
-  phoneNumber String
+  phoneNumber String?
 }
 
 enum Role { 

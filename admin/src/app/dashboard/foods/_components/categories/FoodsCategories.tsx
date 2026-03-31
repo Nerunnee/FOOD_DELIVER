@@ -16,7 +16,9 @@ export const FoodsCategories = async (props: CategoriesProps) => {
       <div className="flex flex-wrap gap-3">
         <Button variant="outline" className="text-sm font-medium">
           All dishes
-          <p className="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center"></p>
+          <p className="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center">
+            {categories.flatMap((category) => category.foods).length}
+          </p>
         </Button>
         {categories.map((category) => {
           return (
