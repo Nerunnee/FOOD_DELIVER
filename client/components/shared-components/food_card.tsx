@@ -1,28 +1,35 @@
-import { Button } from "@/components/ui/button";
+import { Food } from "@/lib/types/categories-types";
 import { Plus } from "lucide-react";
 
 type FoodCardProps = {
-  //   img: string;
-  name: string;
-  price: string;
-  desc: string;
+  food: Food;
 };
 
 export const FoodCard = (props: FoodCardProps) => {
-  const { name, price, desc } = props;
-  return (
-    <div>
-      <img src="/pizza.jpg" alt="Pizza image" className="w-40 h-70" />
-      <Button>
-        <Plus />
-      </Button>
+  const { food } = props;
+  const { foodName, price, ingredients, image } = food;
 
-      <div>
-        <p>{name}</p>
-        <p>{price}₮</p>
+  return (
+    <div className="w-fit p-4 border border-gray-400 rounded-xl flex flex-col gap-5">
+      <div className="relative">
+        <img
+          src="/pizza.jpg"
+          alt="Pizza image"
+          className="w-59.75 h-32.25 rounded-xl object-cover"
+        />
+        <div className="absolute bottom-1 right-1 h-11 w-11 bg-white rounded-full flex items-center justify-center">
+          <Plus />
+        </div>
       </div>
 
-      <p>{desc}</p>
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between">
+          <p className="text-red-500 font-medium">{foodName}</p>
+          <p className="text-xs">{price}₮</p>
+        </div>
+
+        <p className="w-59.75 text-xs truncate">{ingredients}</p>
+      </div>
     </div>
   );
 };
