@@ -6,7 +6,7 @@ const FoodMenu = async () => {
   const categories = await getCategories();
 
   return (
-    <div className="flex flex-col gap-6 m-6">
+    <div className="flex flex-col gap-6">
       <FoodsCategories categories={categories} />
       <FoodsHero categories={categories} />
     </div>

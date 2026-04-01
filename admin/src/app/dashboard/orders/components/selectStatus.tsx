@@ -32,12 +32,7 @@ export function SelectStatus({ orderId, orderStatus }: SelectStatusProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          className={`${status === "PENFING" && "border-2 border-red-500"}`}
-        >
-          {status}
-        </Button>
+        <Button>{status}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40">
         <DropdownMenuGroup>

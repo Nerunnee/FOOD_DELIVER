@@ -13,6 +13,7 @@ export const signIn = async (credentials: Credentials) => {
     headers: {
       "Content-Type": "application/json",
     },
+    cache: "no-cache",
     body: JSON.stringify(credentials),
   });
 

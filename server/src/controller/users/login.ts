@@ -25,7 +25,12 @@ export const login = async (req: Request, res: Response) => {
     if (isMatch) {
       const accessToken = jwt.sign(
         {
-          data: { userId: user.id, email: user.email, role: user.role },
+          data: {
+            userId: user.id,
+            email: user.email,
+            role: user.role,
+            password: user.password,
+          },
         },
         secretToken!,
         { expiresIn: "1week" },

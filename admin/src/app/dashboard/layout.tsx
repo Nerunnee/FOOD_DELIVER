@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Header } from "./_components/Header";
 
 export default function DashboardLayout({
   children,
@@ -11,7 +12,10 @@ export default function DashboardLayout({
       <AppSidebar />
       <main>
         <SidebarTrigger />
-        {children}
+        <div className="ml-6 mt-6 mr-8 mb-12">
+          <Header />
+          {children}
+        </div>
       </main>
     </SidebarProvider>
   );

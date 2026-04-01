@@ -14,7 +14,10 @@ type FoodDetailsProps = {
 export function FoodDetails({ order }: FoodDetailsProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild className="flex text-sm gap-15 items-center">
+      <DropdownMenuTrigger
+        asChild
+        className="flex text-sm gap-15 items-center justify-center"
+      >
         <div>
           <p>{order.foodOrderItems.length} foods</p>
           <ChevronDown size={16} />

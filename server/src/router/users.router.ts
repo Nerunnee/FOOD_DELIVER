@@ -7,6 +7,7 @@ import { deletedUser } from "../controller/users/delete-user";
 import { login } from "../controller/users/login";
 import { authMiddleware } from "../controller/middleware/authMiddleware";
 import { adminMiddleware } from "../controller/middleware/adminMiddleware";
+import { me } from "../controller/users/me";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.post("/", addUser);
 router.put("/:id", updatedUser);
 router.delete("/:id", deletedUser);
 router.post("/login", login);
+router.get("/auth/me", authMiddleware, me);
 
 export default router;

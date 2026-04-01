@@ -14,11 +14,14 @@ const tableHeads = [
 export const TableHeads = () => {
   return (
     <TableHeader>
-      <TableRow className="flex justify-between p-5">
-        {tableHeads.map((head) => (
-          <TableHead key={head.id}>{head.header}</TableHead>
-        ))}
-      </TableRow>
+      {tableHeads.map((head) => (
+        <TableHead
+          key={head.id}
+          className="text-center w-screen border-b border-gray-300"
+        >
+          {head.header}
+        </TableHead>
+      ))}
     </TableHeader>
   );
 };
