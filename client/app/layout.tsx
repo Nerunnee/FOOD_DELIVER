@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/shared-components/Header";
-import { Hero } from "@/components/shared-components/hero";
-import { Footer } from "@/components/shared-components/Footer";
+import { CardContextProvider } from "./_context/CartContext";
+import { Header } from "./_components/shared-components/Header";
+import { Hero } from "./_components/shared-components/hero";
+import { Footer } from "./_components/shared-components/Footer";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "h-full",
         "antialiased",
@@ -42,10 +44,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <div className="bg-neutral-500 min-h-screen">
-          <Header />
-          <Hero />
-          <div className="m-22">{children}</div>
-          <Footer />
+          <CardContextProvider>
+            <Header />
+            <Hero />
+            <div className="m-22">{children}</div>
+            <Footer />
+          </CardContextProvider>
         </div>
       </body>
     </html>

@@ -1,5 +1,5 @@
 import { Food } from "@/lib/types/categories-types";
-import { Plus } from "lucide-react";
+import { FoodDialog } from "../FoodDialog";
 
 type FoodCardProps = {
   food: Food;
@@ -17,15 +17,15 @@ export const FoodCard = (props: FoodCardProps) => {
           alt="Pizza image"
           className="w-59.75 h-32.25 rounded-xl object-cover"
         />
-        <div className="absolute bottom-1 right-1 h-11 w-11 bg-white rounded-full flex items-center justify-center">
-          <Plus />
+        <div className="absolute bottom-1 right-1 bg-white rounded-full flex items-center justify-center">
+          <FoodDialog food={food} />
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
         <div className="flex justify-between items-center">
           <p className="text-red-500 font-medium">{foodName}</p>
-          <p className="text-xs">{price}₮</p>
+          <p className="text-xs">{Number(price).toLocaleString()}₮</p>
         </div>
 
         <p className="w-59.75 text-xs truncate">{ingredients}</p>

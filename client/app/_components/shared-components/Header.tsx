@@ -1,11 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {
-  ChefHat,
-  ChevronRight,
-  MapPin,
-  ShoppingCart,
-  User,
-} from "lucide-react";
+import { ChefHat, ChevronRight, MapPin, User } from "lucide-react";
+import { CardSheet } from "../CardSheet";
 
 export function Header() {
   return (
@@ -28,9 +23,7 @@ export function Header() {
             <p className="text-gray-500">Add Location</p>
             <ChevronRight size={20} color="gray" />
           </Button>
-          <Button className="bg-white">
-            <ShoppingCart size={16} color="black" />
-          </Button>
+          <CardSheet />
 
           <Button className="bg-red-500">
             <User size={16} />
