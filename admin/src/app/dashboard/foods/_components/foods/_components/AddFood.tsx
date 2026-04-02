@@ -24,7 +24,6 @@ type AddFoodProps = {
 
 export function AddFood(props: AddFoodProps) {
   const { categories, currentCategory } = props;
-
   const [open, setOpen] = useState(false);
   const [food, setFood] = useState<{
     foodName: string;

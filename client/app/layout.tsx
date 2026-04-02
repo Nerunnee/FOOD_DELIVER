@@ -43,7 +43,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <div className="bg-neutral-500 min-h-screen">
+        <div className="bg-neutral-700 min-h-screen">
           <CardContextProvider>
             <Header />
             <Hero />

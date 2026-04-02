@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { CardContext } from "../_context/CartContext";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -18,6 +17,7 @@ import { FoodCardOrder } from "./FoodCardOrder";
 
 export function CardSheet() {
   const data = useContext(CardContext);
+  const shippinfPrice = 1000;
 
   return (
     <Sheet>
@@ -26,16 +26,16 @@ export function CardSheet() {
           <ShoppingCart size={16} color="black" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="bg-neutral-700 rounded-l-4xl overflow-scroll">
         <SheetHeader>
-          <SheetTitle className="flex items-center gap-3">
+          <SheetTitle className="flex items-center gap-3 text-white text-xl">
             <ShoppingCart size={24} />
             Order detail
           </SheetTitle>
         </SheetHeader>
-        <div className="grid flex-1 auto-rows-min gap-6 px-4">
-          <div className="grid gap-3">
-            <Label htmlFor="sheet-demo-name">My cart</Label>
+        <div className="flex flex-col gap-6 px-4 justify-between">
+          <div className="grid gap-5 p-4 bg-white rounded-2xl">
+            <Label className="text-xl font-semibold">My cart</Label>
             {data.card.map((card, index) => {
               return (
                 <div key={index}>
@@ -46,10 +46,38 @@ export function CardSheet() {
           </div>
         </div>
         <SheetFooter>
-          <Button type="submit">Save changes</Button>
-          <SheetClose asChild>
-            <Button variant="outline">Close</Button>
-          </SheetClose>
+          {data.card.map((card, index) => {
+            return (
+              <div key={index}>
+                <div className="flex flex-col gap-5 p-4 bg-white rounded-2xl">
+                  <Label className="text-xl font-semibold">Payment info</Label>
+
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between">
+                      Items <span>{card.food.price}</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      Shipping <span>{shippinfPrice}₮</span>
+                    </div>
+                  </div>
+
+                  <div className="border border-dashed"></div>
+
+                  <div className="flex justify-between">
+                    Total price
+                    <span>
+                      {Number(card.food.price) * card.quantity + shippinfPrice}
+                    </span>
+                  </div>
+
+                  <Button type="submit" className="bg-red-500 text-white">
+                    Checkout
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
         </SheetFooter>
       </SheetContent>
     </Sheet>

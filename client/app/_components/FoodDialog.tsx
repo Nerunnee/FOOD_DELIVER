@@ -10,8 +10,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { CircleMinus, CirclePlus, Plus } from "lucide-react";
+import { CircleMinus, CirclePlus, LoaderCircle, Plus } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 
 type FoodCardProps = {
   food: Food;
@@ -20,6 +21,10 @@ type FoodCardProps = {
 export const FoodDialog = (props: FoodCardProps) => {
   const { food } = props;
   const { foodName, price, ingredients, image } = food;
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const { addCard } = useContext(CardContext);
 
   const [quantity, setQuantity] = useState(1);
@@ -33,12 +38,19 @@ export const FoodDialog = (props: FoodCardProps) => {
   };
 
   const onAdd = () => {
-    addCard(food, quantity);
+    setLoading(true);
+    try {
+      addCard(food, quantity);
+      router.refresh();
+      setOpen(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="h-100% w-100%">
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="outline">
             <Plus />
@@ -75,8 +87,12 @@ export const FoodDialog = (props: FoodCardProps) => {
                   </div>
                 </div>
 
-                <Button type="button" onClick={onAdd}>
-                  Add Cart
+                <Button type="button" onClick={onAdd} disabled={loading}>
+                  {loading ? (
+                    <LoaderCircle className="animate-spin" />
+                  ) : (
+                    "Add Cart"
+                  )}
                 </Button>
               </div>
             </div>

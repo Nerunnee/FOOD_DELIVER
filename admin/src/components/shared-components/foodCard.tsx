@@ -29,7 +29,7 @@ export const FoodCard = (props: FoodCardProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <p className="text-red-500 font-medium">{foodName}</p>
           <p className="text-xs">{price}₮</p>
         </div>
