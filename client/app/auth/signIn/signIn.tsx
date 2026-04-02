@@ -23,7 +23,7 @@ export function SignIn() {
       const data = await signIn(credentials);
 
       if (data) {
-        router.push("/menu");
+        router.push("/");
       }
     } catch (error) {
       console.error("Error:", error);

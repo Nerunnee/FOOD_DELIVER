@@ -10,7 +10,7 @@ export const FoodCard = (props: FoodCardProps) => {
   const { foodName, price, ingredients, image } = food;
 
   return (
-    <div className="w-fit p-4 border border-gray-400 rounded-xl flex flex-col gap-5">
+    <div className="w-fit p-4 bg-white rounded-xl flex flex-col gap-5">
       <div className="relative">
         <img
           src="/pizza.jpg"
@@ -23,7 +23,7 @@ export const FoodCard = (props: FoodCardProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <p className="text-red-500 font-medium">{foodName}</p>
           <p className="text-xs">{price}₮</p>
         </div>

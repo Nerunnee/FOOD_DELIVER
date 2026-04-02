@@ -1,20 +1,24 @@
-import { SignIn } from "./auth/signIn/signIn";
+import { FoodCard } from "@/components/shared-components/food_card";
+import { getCategories } from "@/lib/services/get-categories";
 
-export default function Home() {
+export default async function Home() {
+  const categories = await getCategories();
+
   return (
-    <div className="w-260 h-screen mx-auto flex justify-between items-center gap-12">
-      <div>
-        <SignIn />
-      </div>
-      <div className="w-225 overflow-hidden rounded-4xl">
-        <img
-          src="/images/img.png"
-          width="100%"
-          height="100%"
-          alt="Food Delivery Image"
-          className="object-cover"
-        />
-      </div>
+    <div className="flex flex-col gap-12">
+      {categories.map((category) => (
+        <div key={category.id} className="flex flex-col gap-12">
+          <div className="text-3xl text-white">{category.name}</div>
+
+          <div>
+            {category.foods.map((food) => (
+              <div key={food.id}>
+                <FoodCard food={food} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
