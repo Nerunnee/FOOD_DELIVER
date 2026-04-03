@@ -19,3 +19,6 @@ app.use("/orders", orderRouter);
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+//API_URL=https://www.google.com
+// {process.env.API_URL}/foods
