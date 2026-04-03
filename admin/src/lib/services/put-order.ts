@@ -2,7 +2,7 @@ export const putOrder = async (id: number, status: string) => {
   const body = { status };
 
   try {
-    await fetch(`http://localhost:3000/orders/${id}`, {
+    await fetch(`${process.env.API_URL}/orders/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
