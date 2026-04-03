@@ -25,7 +25,7 @@ export function Header() {
           </Button>
           <CardSheet />
 
-          <Button className="bg-red-500">
+          <Button className="bg-red-500 hover:bg-red-500">
             <User size={16} />
           </Button>
         </div>

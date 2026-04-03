@@ -51,7 +51,9 @@ export const FoodCardOrder = (props: FoodCardProps) => {
             </div>
 
             <div>
-              <p className="text-base">{Number(price).toLocaleString()}₮</p>
+              <p className="text-base">
+                {(quantity * Number(price)).toLocaleString()}₮
+              </p>
             </div>
           </div>
         </div>

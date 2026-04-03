@@ -22,7 +22,7 @@ export function CardSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="bg-white">
+        <Button className="bg-white hover:bg-white">
           <ShoppingCart size={16} color="black" />
         </Button>
       </SheetTrigger>
