@@ -32,7 +32,7 @@ export function AppSidebar() {
         <Tabs defaultValue="menu" className="w-100">
           <TabsList>
             <Link href={`/dashboard/foods`}>
-              <TabsTrigger value="menu">
+              <TabsTrigger value="menu" asChild>
                 <Button
                   variant="outline"
                   className={`${pathname === "/dashboard/foods" && "bg-black text-white"} hover:bg-cyan-500`}
@@ -42,7 +42,7 @@ export function AppSidebar() {
               </TabsTrigger>
             </Link>
             <Link href={`/dashboard/orders`}>
-              <TabsTrigger value="orders">
+              <TabsTrigger value="orders" asChild>
                 <Button
                   variant="outline"
                   className={`${pathname === "/dashboard/orders" && "bg-black text-white"}  hover:bg-cyan-500`}

@@ -5,7 +5,7 @@ export async function GET(request: Request) {
 
   const token = cookiesStore.get("token")?.value;
 
-  const response = await fetch("http://localhost:3000/categories", {
+  const response = await fetch(`${process.env.API_URL}/categories`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

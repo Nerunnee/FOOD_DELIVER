@@ -23,7 +23,7 @@ const getUser = async () => {
 
   console.log(token);
 
-  const response = await fetch(`http://localhost:3000/users/auth/me`, {
+  const response = await fetch(`${process.env.API_URL}/users/auth/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
