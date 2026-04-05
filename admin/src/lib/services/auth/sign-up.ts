@@ -9,6 +9,7 @@ export const signUp = async (credentials: Credentials) => {
     headers: {
       "Content-Type": "application/json",
     },
+    cache: "no-store",
     body: JSON.stringify(credentials),
   });
 };

@@ -7,6 +7,7 @@ export const putOrder = async (id: number, status: string) => {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
       body: JSON.stringify(body),
     });
   } catch (error) {

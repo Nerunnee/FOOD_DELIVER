@@ -13,7 +13,6 @@ app.use(
   cors({
     origin: "https://food-delivery-wy23.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
 );
