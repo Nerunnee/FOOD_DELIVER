@@ -16,6 +16,7 @@ import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Category } from "@/lib/types/categories-types";
 import { CategorySelector } from "../../foods/_components/CategorySelector";
+import { CldUpload } from "../../foods/_components/CldUpload";
 
 type AddFoodProps = {
   categories: Category[];
@@ -52,6 +53,10 @@ export function AddFoodCategory(props: AddFoodProps) {
     setFood({ ...food, categoryId: categoryId });
   };
 
+  const onUploadImage = (url: string) => {
+    setFood((prev) => ({ ...prev, image: url }));
+  };
+
   const onAddFood = async () => {
     setLoading(true);
     const postBody = {
@@ -63,7 +68,7 @@ export function AddFoodCategory(props: AddFoodProps) {
     };
 
     try {
-      await fetch("http://localhost:3000/foods", {
+      await fetch(`http://localhost:3000/foods`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,12 +142,7 @@ export function AddFoodCategory(props: AddFoodProps) {
 
             <div className="grid flex-1 gap-2">
               <Label>Food image</Label>
-              <Input
-                type="text"
-                placeholder="Add food image..."
-                name="image"
-                onChange={handleChange}
-              />
+              <CldUpload onUpload={onUploadImage} />
             </div>
           </div>
 

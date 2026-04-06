@@ -14,11 +14,13 @@ export const FoodCard = (props: FoodCardProps) => {
   return (
     <div className="w-fit p-4 border border-gray-400 rounded-xl flex flex-col gap-5">
       <div className="relative">
-        <img
-          src="/pizza.jpg"
-          alt="Pizza image"
-          className="w-59.75 h-32.25 rounded-xl object-cover"
-        />
+        {image && (
+          <img
+            src={image}
+            alt="Pizza image"
+            className="w-59.75 h-32.25 rounded-xl object-cover"
+          />
+        )}
         <div className="absolute bottom-1 right-1 h-11 w-11 bg-white rounded-full flex items-center justify-center">
           <EditFood
             categories={categories}

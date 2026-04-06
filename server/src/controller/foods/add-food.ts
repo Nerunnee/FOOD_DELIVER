@@ -4,6 +4,10 @@ import { prisma } from "../../lib/prisma";
 export const addFood = async (req: Request, res: Response) => {
   const { foodName, price, image, ingredients, foodCategoryId } = req.body;
 
+  // console.log(req.body);
+
+  // return res.status(200).send("ok");
+
   try {
     const newfood = await prisma.food.create({
       data: { foodName, price, image, ingredients, foodCategoryId },

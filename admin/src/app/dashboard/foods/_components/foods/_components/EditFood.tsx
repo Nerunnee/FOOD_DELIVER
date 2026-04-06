@@ -16,6 +16,7 @@ import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
+import { CldUpload } from "./CldUpload";
 
 type EditFoodProps = {
   food: Food;
@@ -54,6 +55,10 @@ export function EditFood(props: EditFoodProps) {
     setEditFood({ ...editFood, foodCategoryId: foodCategoryId });
   };
 
+  const onUploadImage = (url: string) => {
+    setEditFood((prev) => ({ ...prev, image: url }));
+  };
+
   const onAddFood = async () => {
     setLoading(true);
     const postBody = {
@@ -86,7 +91,7 @@ export function EditFood(props: EditFoodProps) {
     setDeleteLoading(true);
 
     try {
-      await fetch(`http://localhost:3000/foods/${food.id}`, {
+      await fetch(`${process.env.API_URL}/foods/${food.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -159,11 +164,9 @@ export function EditFood(props: EditFoodProps) {
 
             <div className="grid flex-1 gap-2">
               <Label>Food image</Label>
-              <Input
-                type="text"
-                name="image"
-                onChange={handleChange}
-                value={editFood.image}
+              <CldUpload
+                onUpload={onUploadImage}
+                currentImage={editFood.image}
               />
             </div>
           </div>

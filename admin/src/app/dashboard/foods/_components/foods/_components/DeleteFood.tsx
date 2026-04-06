@@ -16,6 +16,7 @@ import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
+import { CldUpload } from "./CldUpload";
 
 type DeleteFoodProps = {
   food: Food;
@@ -50,6 +51,10 @@ export function DeleteFood(props: DeleteFoodProps) {
 
   const onSelectCategory = (foodCategoryId: number) => {
     setDeleteFood({ ...food, foodCategoryId: foodCategoryId });
+  };
+
+  const onUploadImage = (url: string) => {
+    setDeleteFood((prev) => ({ ...prev, image: url }));
   };
 
   const onAddFood = async () => {
@@ -136,12 +141,14 @@ export function DeleteFood(props: DeleteFoodProps) {
 
             <div className="grid flex-1 gap-2">
               <Label>Food image</Label>
-              <Input
-                type="text"
-                name="image"
-                onChange={handleChange}
-                value={deleteFood.image}
-              />
+              <CldUpload onUpload={onUploadImage} />
+              {
+                <img
+                  src={food.image}
+                  alt=""
+                  className="h-50 w-screen object-cover rounded-md"
+                />
+              }
             </div>
           </div>
 
