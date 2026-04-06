@@ -4,7 +4,7 @@ type Credentials = {
 };
 
 export const signUp = async (credentials: Credentials) => {
-  await fetch(`http://localhost:4000/users`, {
+  await fetch(`${process.env.API_URL}/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

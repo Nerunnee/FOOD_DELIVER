@@ -8,7 +8,7 @@ export const addCategory = async (categoryName: CategoryName) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  await fetch("http://localhost:4000/categories", {
+  await fetch(`${process.env.API_URL}/categories`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

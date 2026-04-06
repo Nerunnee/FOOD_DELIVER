@@ -6,36 +6,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getUserMe } from "@/lib/services/users/get-user-me";
 import { Mail } from "lucide-react";
-import { cookies } from "next/headers";
-
-type User = {
-  email: string;
-  phoneNumber: string;
-  address: string;
-  age: number;
-  id: number;
-};
-
-const getUser = async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  const response = await fetch(`http://localhost:4000/users/auth/me`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const user = (await response.json()) as User;
-
-  return user;
-};
 
 export const Header = async () => {
-  const user = await getUser();
+  const user = await getUserMe();
 
   return (
     <div className="flex justify-end mr-5">

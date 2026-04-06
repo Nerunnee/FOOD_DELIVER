@@ -1,7 +1,7 @@
 "use server";
 
 export const onDeleteFood = async (foodId: number) => {
-  await fetch(`http://localhost:4000/foods/${foodId}`, {
+  await fetch(`${process.env.API_URL}/foods/${foodId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

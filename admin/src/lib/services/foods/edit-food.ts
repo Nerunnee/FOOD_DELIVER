@@ -9,7 +9,7 @@ type FoodType = {
 };
 
 export const onEditFood = async (foodId: number, food: FoodType) => {
-  await fetch(`http://localhost:4000/foods/${foodId}`, {
+  await fetch(`${process.env.API_URL}/foods/${foodId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

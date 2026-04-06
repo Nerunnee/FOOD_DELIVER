@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
     const cookieStore = await cookies();
 
-    const response = await fetch(`http://localhost:4000/users/login`, {
+    const response = await fetch(`${process.env.API_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

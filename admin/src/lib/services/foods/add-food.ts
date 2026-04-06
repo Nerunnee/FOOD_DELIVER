@@ -14,7 +14,7 @@ export const addFood = async (food: FoodType) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  await fetch("http://localhost:4000/foods", {
+  await fetch(`${process.env.API_URL}/foods`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
