@@ -21,8 +21,6 @@ const getUser = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  console.log(token);
-
   const response = await fetch(`http://localhost:4000/users/auth/me`, {
     method: "GET",
     headers: {
@@ -38,8 +36,6 @@ const getUser = async () => {
 
 export const Header = async () => {
   const user = await getUser();
-
-  console.log(user);
 
   return (
     <div className="flex justify-end mr-5">

@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
+import { addCategory } from "@/lib/services/categories/add-category";
 
 export function AddCategory() {
   const [open, setOpen] = useState(false);
@@ -34,15 +35,7 @@ export function AddCategory() {
     };
 
     try {
-      await fetch("http://localhost:4000/categories", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.ADMINJWT}`,
-          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6MiwiZW1haWwiOiJ6dWxhYUBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4ifSwiaWF0IjoxNzc0NDA4NDQ3LCJleHAiOjE3NzQ0MTIwNDd9.bIxOgxHZG8mWa8Kx9SdsUsGrg8f8NjtAI-JgD1Vp3wU`,
-        },
-        body: JSON.stringify(postBody),
-      });
+      await addCategory(postBody);
       router.refresh();
       setOpen(false);
     } catch (error) {

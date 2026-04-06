@@ -17,7 +17,8 @@ import { useRouter } from "next/navigation";
 import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
 import { CldUpload } from "./CldUpload";
-import { onDeleteFood } from "@/lib/services/delete-food";
+import { onEditFood } from "@/lib/services/foods/edit-food";
+import { onDeleteFood } from "@/lib/services/foods/delete-food";
 
 type EditFoodProps = {
   food: Food;
@@ -27,7 +28,6 @@ type EditFoodProps = {
 
 export function EditFood(props: EditFoodProps) {
   const { categories, food, currentCategory } = props;
-  const [deletingId, setDeletingId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const [editFood, setEditFood] = useState<{
     foodName: string;
@@ -60,7 +60,7 @@ export function EditFood(props: EditFoodProps) {
     setEditFood((prev) => ({ ...prev, image: url }));
   };
 
-  const onAddFood = async () => {
+  const onSaveFood = async () => {
     setLoading(true);
     const postBody = {
       foodName: editFood.foodName,
@@ -71,14 +71,7 @@ export function EditFood(props: EditFoodProps) {
     };
 
     try {
-      await fetch(`http://localhost:4000/foods/${food.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${process.env.ADMINJWT}`,
-        },
-        body: JSON.stringify(postBody),
-      });
+      await onEditFood(food.id, postBody);
       router.refresh();
       setOpen(false);
     } catch (error) {
@@ -88,40 +81,17 @@ export function EditFood(props: EditFoodProps) {
     setLoading(false);
   };
 
-  const deleteFood = async () => {
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     setDeleteLoading(true);
-
     try {
-      await fetch(`${process.env.API_URL}/foods/${food.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${process.env.ADMINJWT}`,
-        },
-      });
+      await onDeleteFood(food.id);
       router.refresh();
       setOpen(false);
-    } catch (error) {
-      console.log(error);
-    }
-
-    setDeleteLoading(false);
-  };
-
-  ///////
-
-  const handleDelete = async (e: React.MouseEvent, foodId: number) => {
-    e.stopPropagation();
-    setDeletingId(foodId);
-    try {
-      await fetch(`${process.env.API_URL}/foods/${foodId}`, {
-        method: "DELETE",
-      });
-      router.refresh();
     } catch (err) {
       console.log(err);
     } finally {
-      setDeletingId(null);
+      setDeleteLoading(false);
     }
   };
 
@@ -193,21 +163,17 @@ export function EditFood(props: EditFoodProps) {
             <Button
               type="button"
               variant="destructive"
-              onClick={(e) => handleDelete(e, food.id)}
-              disabled={loading}
+              onClick={handleDelete}
+              disabled={deleteLoading}
             >
               {deleteLoading ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
-                <Trash
-                  size={16}
-                  className="text-red-500"
-                  onClick={(e) => handleDelete(e, food.id)}
-                />
+                <Trash size={16} />
               )}
             </Button>
 
-            <Button type="button" onClick={onAddFood} disabled={loading}>
+            <Button type="button" onClick={onSaveFood} disabled={loading}>
               {loading ? (
                 <LoaderCircle className="animate-spin" />
               ) : (

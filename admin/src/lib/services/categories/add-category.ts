@@ -2,25 +2,19 @@
 
 import { cookies } from "next/headers";
 
-type FoodType = {
-  foodName: string;
-  price: number;
-  ingredients: string;
-  foodCategoryId: number | null;
-  image: string;
-};
+type CategoryName = { name: string };
 
-export const addFood = async (food: FoodType) => {
+export const addCategory = async (categoryName: CategoryName) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  await fetch("http://localhost:4000/foods", {
+  await fetch("http://localhost:4000/categories", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     cache: "no-store",
-    body: JSON.stringify(food),
+    body: JSON.stringify(categoryName),
   });
 };

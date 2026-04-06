@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Category } from "@/lib/types/categories-types";
 import { CategorySelector } from "../../foods/_components/CategorySelector";
 import { CldUpload } from "../../foods/_components/CldUpload";
+import { addFood } from "@/lib/services/foods/add-food";
 
 type AddFoodProps = {
   categories: Category[];
@@ -68,14 +69,7 @@ export function AddFoodCategory(props: AddFoodProps) {
     };
 
     try {
-      await fetch(`http://localhost:4000/foods`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${process.env.ADMINJWT}`,
-        },
-        body: JSON.stringify(postBody),
-      });
+      await addFood(postBody);
       router.refresh();
       setOpen(false);
     } catch (error) {

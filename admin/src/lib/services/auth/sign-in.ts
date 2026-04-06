@@ -8,8 +8,6 @@ type SignInResponse = {
 };
 
 export const signIn = async (credentials: Credentials) => {
-  console.log("credentials: ", credentials);
-
   const response = await fetch("/api/user/auth", {
     method: "POST",
     headers: {

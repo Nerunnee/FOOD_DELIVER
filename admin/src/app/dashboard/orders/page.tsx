@@ -1,9 +1,9 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { TableHeads } from "./components/TableHeads";
-import { getOrders } from "@/lib/services/get-orders";
 import { SelectStatus } from "./components/selectStatus";
 import { FoodDetails } from "./components/FoodDetails";
 import { Input } from "@/components/ui/input";
+import { getOrders } from "@/lib/services/orders/get-orders";
 
 const GetOrders = async () => {
   const orders = await getOrders();

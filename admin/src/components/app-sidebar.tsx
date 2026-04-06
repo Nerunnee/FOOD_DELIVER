@@ -15,8 +15,8 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="flex justify-center gap-4">
+      <SidebarContent className="flex gap-6">
         <Link href={`/`}>
           <SidebarHeader className="text-cyan-700">
             <div className="flex items-center gap-2">
@@ -29,8 +29,8 @@ export function AppSidebar() {
           </SidebarHeader>
         </Link>
 
-        <Tabs defaultValue="menu" className="w-100">
-          <TabsList>
+        <Tabs defaultValue="menu" className="flex justify-center gap-5">
+          <TabsList className="flex gap-3">
             <Link href={`/dashboard/foods`}>
               <TabsTrigger value="menu" asChild>
                 <Button

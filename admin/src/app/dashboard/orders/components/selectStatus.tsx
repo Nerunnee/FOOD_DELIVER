@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { putOrder } from "@/lib/services/put-order";
+import { putOrder } from "@/lib/services/orders/edit-order";
 
 type SelectStatusProps = {
   orderStatus: string;

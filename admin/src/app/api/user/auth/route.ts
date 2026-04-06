@@ -21,11 +21,8 @@ export async function POST(request: Request) {
     });
 
     const responseData = (await response.json()) as SignInResponse;
-    console.log("responseData API/USER/AUTH", responseData);
 
     cookieStore.set("token", responseData.accessToken);
-
-    console.log("responseData: ", responseData);
 
     return NextResponse.json({ message: "success" }, { status: 200 });
   } catch (error) {

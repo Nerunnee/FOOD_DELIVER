@@ -5,10 +5,8 @@ import jwt from "jsonwebtoken";
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  console.log(email, password);
 
   const secretToken = process.env.NERUNNEEJWT;
-  console.log("secretToken: ", secretToken);
 
   try {
     const user = await prisma.user.findUnique({
@@ -21,10 +19,8 @@ export const login = async (req: Request, res: Response) => {
       res.status(404).json({ message: "User not found" });
       return;
     }
-    console.log(user);
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(isMatch);
 
     if (isMatch) {
       const accessToken = jwt.sign(
@@ -39,7 +35,6 @@ export const login = async (req: Request, res: Response) => {
         secretToken!,
         { expiresIn: "1week" },
       );
-      console.log("accessToken: ", accessToken);
 
       res.status(200).json({ accessToken });
     } else {

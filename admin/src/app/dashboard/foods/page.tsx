@@ -1,4 +1,4 @@
-import { getCategories } from "@/lib/services/get-categories";
+import { getCategories } from "@/lib/services/categories/get-categories";
 import { FoodsCategories } from "./_components/categories/FoodsCategories";
 import { FoodsHero } from "./_components/foods/FoodsHero";
 
