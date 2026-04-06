@@ -1,4 +1,4 @@
-import { getCategories } from "@/lib/services/get-categories";
+import { getCategories } from "@/lib/services/categories/get-categories";
 import { FoodCard } from "./_components/shared-components/food_card";
 
 export default async function Home() {
@@ -14,7 +14,7 @@ export default async function Home() {
         <div key={category.id} className="flex flex-col gap-12">
           <div className="text-3xl text-white">{category.name}</div>
 
-          <div>
+          <div className="flex flex-wrap gap-9">
             {category.foods.map((food) => (
               <div key={food.id}>
                 <FoodCard food={food} />

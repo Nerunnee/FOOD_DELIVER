@@ -13,7 +13,7 @@ export const FoodCard = (props: FoodCardProps) => {
     <div className="w-fit p-4 bg-white rounded-xl flex flex-col gap-5">
       <div className="relative">
         <img
-          src="/pizza.jpg"
+          src={image}
           alt="Pizza image"
           className="w-59.75 h-32.25 rounded-xl object-cover"
         />

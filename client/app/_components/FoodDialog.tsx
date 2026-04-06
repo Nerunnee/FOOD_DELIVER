@@ -60,7 +60,7 @@ export const FoodDialog = (props: FoodCardProps) => {
           <div className="w-fit bg-white rounded-xl flex gap-5">
             <div>
               <img
-                src="/pizza.jpg"
+                src={image}
                 alt="Pizza image"
                 className="w-90 h-50 rounded-xl object-cover"
               />

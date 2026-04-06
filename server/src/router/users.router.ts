@@ -6,7 +6,6 @@ import { updatedUser } from "../controller/users/update-user";
 import { deletedUser } from "../controller/users/delete-user";
 import { login } from "../controller/users/login";
 import { authMiddleware } from "../controller/middleware/authMiddleware";
-import { adminMiddleware } from "../controller/middleware/adminMiddleware";
 import { me } from "../controller/users/me";
 
 const router = express.Router();
