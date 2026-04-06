@@ -18,6 +18,7 @@ export const getUserMe = async () => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    cache: "no-store",
   });
 
   const user = (await response.json()) as User;

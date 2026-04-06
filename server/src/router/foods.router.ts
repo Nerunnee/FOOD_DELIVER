@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.get("/", getFoods);
 router.get("/:id", getFoodById);
-router.post("/", addFood);
-router.put("/:id", updatedFood);
-router.delete("/:id", deletedFood);
+router.post("/", authMiddleware, addFood);
+router.put("/:id", authMiddleware, updatedFood);
+router.delete("/:id", authMiddleware, deletedFood);
 
 export default router;
