@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
 import { CldUpload } from "./CldUpload";
+import { onDeleteFood } from "@/lib/services/delete-food";
 
 type EditFoodProps = {
   food: Food;
@@ -26,7 +27,7 @@ type EditFoodProps = {
 
 export function EditFood(props: EditFoodProps) {
   const { categories, food, currentCategory } = props;
-
+  const [deletingId, setDeletingId] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const [editFood, setEditFood] = useState<{
     foodName: string;
@@ -70,7 +71,7 @@ export function EditFood(props: EditFoodProps) {
     };
 
     try {
-      await fetch(`http://localhost:3000/foods/${food.id}`, {
+      await fetch(`http://localhost:4000/foods/${food.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -105,6 +106,23 @@ export function EditFood(props: EditFoodProps) {
     }
 
     setDeleteLoading(false);
+  };
+
+  ///////
+
+  const handleDelete = async (e: React.MouseEvent, foodId: number) => {
+    e.stopPropagation();
+    setDeletingId(foodId);
+    try {
+      await fetch(`${process.env.API_URL}/foods/${foodId}`, {
+        method: "DELETE",
+      });
+      router.refresh();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   return (
@@ -175,13 +193,17 @@ export function EditFood(props: EditFoodProps) {
             <Button
               type="button"
               variant="destructive"
-              onClick={deleteFood}
+              onClick={(e) => handleDelete(e, food.id)}
               disabled={loading}
             >
               {deleteLoading ? (
                 <LoaderCircle className="animate-spin" />
               ) : (
-                <Trash size={16} className="text-red-500" />
+                <Trash
+                  size={16}
+                  className="text-red-500"
+                  onClick={(e) => handleDelete(e, food.id)}
+                />
               )}
             </Button>
 

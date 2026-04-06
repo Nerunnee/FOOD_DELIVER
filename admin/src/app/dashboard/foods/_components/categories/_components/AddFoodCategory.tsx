@@ -68,7 +68,7 @@ export function AddFoodCategory(props: AddFoodProps) {
     };
 
     try {
-      await fetch(`http://localhost:3000/foods`, {
+      await fetch(`http://localhost:4000/foods`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

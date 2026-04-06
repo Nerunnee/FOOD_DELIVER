@@ -6,7 +6,7 @@ import orderRouter from "./router/orders.router";
 import cors from "cors";
 
 const app: Application = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors());

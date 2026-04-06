@@ -14,7 +14,7 @@ export const addFood = async (food: FoodType) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  await fetch("http://localhost:3000/foods", {
+  await fetch("http://localhost:4000/foods", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

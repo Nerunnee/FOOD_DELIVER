@@ -34,7 +34,7 @@ export function AddCategory() {
     };
 
     try {
-      await fetch("http://localhost:3000/categories", {
+      await fetch("http://localhost:4000/categories", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

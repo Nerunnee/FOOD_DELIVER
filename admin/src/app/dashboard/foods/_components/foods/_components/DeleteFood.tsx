@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Category, Food } from "@/lib/types/categories-types";
 import { CategorySelector } from "./CategorySelector";
 import { CldUpload } from "./CldUpload";
+import { onDeleteFood } from "@/lib/services/delete-food";
 
 type DeleteFoodProps = {
   food: Food;
@@ -25,7 +26,6 @@ type DeleteFoodProps = {
 
 export function DeleteFood(props: DeleteFoodProps) {
   const { categories, food } = props;
-
   const [open, setOpen] = useState(false);
   const [deleteFood, setDeleteFood] = useState<{
     foodName: string;
@@ -59,23 +59,9 @@ export function DeleteFood(props: DeleteFoodProps) {
 
   const onAddFood = async () => {
     setLoading(true);
-    const postBody = {
-      foodName: food.foodName,
-      price: food.price,
-      ingredients: food.ingredients,
-      foodCategoryId: food.foodCategoryId,
-      image: food.image,
-    };
 
     try {
-      await fetch(`http://localhost:3000/foods/${food.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization: `Bearer ${process.env.ADMINJWT}`,
-        },
-        body: JSON.stringify(postBody),
-      });
+      await onDeleteFood(food.id);
       router.refresh();
       setOpen(false);
     } catch (error) {
