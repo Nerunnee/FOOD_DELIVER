@@ -14,14 +14,16 @@ const tableHeads = [
 export const TableHeads = () => {
   return (
     <TableHeader>
-      {tableHeads.map((head) => (
-        <TableHead
-          key={head.id}
-          className="text-center w-screen border-b border-gray-300"
-        >
-          {head.header}
-        </TableHead>
-      ))}
+      <TableRow>
+        {tableHeads.map((head) => (
+          <TableHead
+            key={head.id}
+            className="text-center w-screen border-b border-gray-300"
+          >
+            {head.header}
+          </TableHead>
+        ))}
+      </TableRow>
     </TableHeader>
   );
 };

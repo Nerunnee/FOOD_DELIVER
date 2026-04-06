@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     });
 
     const responseData = (await response.json()) as SignInResponse;
+    console.log("responseData API/USER/AUTH", responseData);
 
     cookieStore.set("token", responseData.accessToken);
 

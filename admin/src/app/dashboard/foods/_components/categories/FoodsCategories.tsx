@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Category } from "@/lib/types/categories-types";
 import { AddCategory } from "./_components/AddCategory";
 import { AddFoodCategory } from "./_components/AddFoodCategory";
+import { Badge } from "@/components/ui/badge";
 
 type CategoriesProps = {
   categories: Category[];
@@ -25,7 +26,7 @@ export const FoodsCategories = async (props: CategoriesProps) => {
             <div key={category.id}>
               <Button variant="outline" className="text-sm font-medium flex">
                 {category.name}
-                <p className="h-7 w-7 bg-black text-white rounded-full flex items-center justify-center p-3">
+                <Badge className="h-7 w-7 bg-black text-white rounded-full flex items-center justify-center p-3">
                   {category.foods.length === 0 ? (
                     <AddFoodCategory
                       categories={categories}
@@ -34,7 +35,7 @@ export const FoodsCategories = async (props: CategoriesProps) => {
                   ) : (
                     category.foods.length
                   )}
-                </p>
+                </Badge>
               </Button>
             </div>
           );
